@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>North Pies</title>
+<link rel="stylesheet" href="style.css"> 
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
+
+<!-- Copy your leaflet link here, this is code that you will find in the leafletjs.com/examples/quick-start/:  -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+
+<!-- Copy your Leaflet Basemap Provider Link Here: -->
+ <script src="js/leaflet-providers.js"></script>
+</head>
+
+
+<body>
+
+<div class = "intro">
+<h1>Pie Places in Chicago</h1>
+<h3>Exploring access to pies in Lincoln Square and Ravenswood Manor</h3>
+
+
+</div>
+
+<!--explains the problem of access to grocery stores-->
+<div class = "shops">
+	<p> According to reports by Chicago Eater, there are so many places one can buy a pie. In the Northside of Chicago, there is a surprising number of shops within a few blocks of each other. Check out this map to see if you are literally closer to a slice of pie or whether you are better of walking to a store to buy ingredients to make one.  </p>
+	<p> Learn more about Chicago's best rated pies <a href="https://chicago.eater.com/maps/best-pie-chicago">here</a></p> 
+</div>
+
+
+<div id ="map"><!-- Using Leaflet below, we will put a map in this div --></div>
+
+
+<script>
+
+// initialize your map here, the numbers are Latitude., longitude, and ow zoomed in you want your map to be
+var map = L.map('map').setView([41.964887, -87.700602], 10);
+
+// add a base layer 
+var Stamen_Terrain = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  subdomains: 'abcd',
+  minZoom: 0,
+  maxZoom: 18,
+  ext: 'png'
+})addTo(map);
+
+//add circle point to map and change the size/style
+var circle = L.circle([41.964887, -87.700602],{
+	color: 'red',
+  fillColor: '#f03',
+  fillOpacity: 0.5,
+  radius: 900,
+}).addTo(map).bindPopup("this could be a reasonable walking distance from my house");
+
+//create a variable that pulls in a new icon image
+var myIcon = L.icon({
+    iconUrl: 'pie.png',
+    iconSize: [30, 30],
+});
+
+//create markers & give it the icon we created
+var marker = L.marker([41.966262, -87.701315],{
+	icon: myIcon
+}).addTo(map).bindPopup("Pie seller 1");
+
+var marker = L.marker([41.966778, -87.693458],{
+  icon: myIcon
+}).addTo(map).bindPopup("Pie selle 2");
+
+var marker = L.marker([41.967728, -87.683312],{
+  icon: myIcon
+}).addTo(map).bindPopup("Pie seller 3");
+
+
+//create a polygon and style
+var polygon = L.polygon([
+    [41.966145, -87.703407],
+    [41.965314, -87.694273],
+    [41.966327, -87.686049],
+    [41.967213, -87.688019],
+], {
+  color: 'purple', 
+  fillColor: 'green',
+  fillOpacity: .11,
+}).addTo(map).bindPopup("This is an unreasonably large tristate polygon");
+
+//create a line
+var line = L.polyline([
+    [41.966160, -87.701519],
+    [41.966237, -87.694045],
+    [41.96304, -87.688479],
+    [41.966447, -87.678769],
+]).addTo(map).bindPopup("What could this line mean?");
+
+
+</script>
+
+</div>
+
+</body>
+
+</html>
